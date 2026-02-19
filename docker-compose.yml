@@ -20,6 +20,9 @@ services:
       - "${BACKEND_PORT}:3000"
     environment:
       - DATABASE_URL=${DATABASE_URL}
+      - JWT_SECRET=${JWT_SECRET}
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
     depends_on:
       - db
     volumes:
