@@ -31,7 +31,7 @@ fastify.register(warehouseController, { prefix: `${API_PREFIX}/warehouses` });
 
 fastify.register(stockMovementController, { prefix: '/api/v1/stock-movements' });
 
-fastify.get('/health', { preHandler: authenticate }, async (request, reply) => {
+fastify.get('/health', async (request, reply) => {
   return { status: 'ok', timestamp: new Date().toISOString() };
 });
 
