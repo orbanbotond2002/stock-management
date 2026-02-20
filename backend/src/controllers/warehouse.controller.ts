@@ -21,16 +21,36 @@ export default async function warehouseController(fastify: FastifyInstance) {
     }
   });
 
-  fastify.post('/', { preHandler: [authenticate, requireRole('admin')] }, async (request, reply) => {
+  fastify.post('/', {
+    preHandler: [authenticate, requireRole('admin')],
+    schema: {
+        body: {
+        type: 'object',
+        required: ['name'],
+        properties: {
+            name: { type: 'string' },
+            location: { type: 'string' }
+        }
+        }
+    }
+    }, async (request, reply) => {
     const body = request.body as { name?: string; location?: string };
-    if (!body?.name)
-      return sendError(reply, validationError('name is required'));
-
     const warehouse = await warehouseService.createWarehouse(body as { name: string; location?: string });
     return reply.status(201).send(warehouse);
   });
 
-  fastify.put('/:id', { preHandler: [authenticate, requireRole('admin')] }, async (request, reply) => {
+  fastify.put('/:id', {
+    preHandler: [authenticate, requireRole('admin')],
+    schema: {
+        body: {
+        type: 'object',
+        properties: {
+            name: { type: 'string' },
+            location: { type: 'string' }
+        }
+        }
+    }
+    }, async (request, reply) => {
     const { id } = request.params as { id: string };
     const body = request.body as { name?: string; location?: string };
     try {

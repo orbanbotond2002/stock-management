@@ -23,3 +23,9 @@ export const authenticationError = () =>
 
 export const conflict = (message: string) =>
   new AppError(409, 'CONFLICT', message);
+
+export const insufficientStock = () =>
+  new AppError(400, 'INSUFFICIENT_STOCK', 'Not enough stock in warehouse');
+
+export const invalidTransfer = () =>
+  new AppError(400, 'INVALID_TRANSFER', 'Source and target warehouse cannot be the same');

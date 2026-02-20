@@ -3,7 +3,18 @@ import { loginUser } from '../services/auth.service.js';
 import '@fastify/jwt';
 
 export default async function authController(fastify: FastifyInstance) {
-  fastify.post('/login', async (request, reply) => {
+  fastify.post('/login', {
+    schema: {
+      body: {
+        type: 'object',
+        required: ['email', 'password'],
+        properties: {
+          email: { type: 'string', format: 'email' },
+          password: { type: 'string' }
+        }
+      }
+    }
+  }, async (request, reply) => {
     const { email, password } = request.body as any;
 
     if (!email || !password)
