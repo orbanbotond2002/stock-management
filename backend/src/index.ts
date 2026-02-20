@@ -3,6 +3,7 @@ import authController from './controllers/auth.controller.js';
 import fastifyJwt from '@fastify/jwt';
 import { API_PREFIX } from './config/constants.js';
 import { authenticate } from './middlewares/authenticate.js';
+import productController from './controllers/product.controller.js';
 
 const fastify = Fastify({
   logger: true
@@ -15,6 +16,8 @@ if (!jwtSecret) throw new Error('JWT_SECRET environment variable is not set');
 fastify.register(fastifyJwt, { secret: jwtSecret });
 
 fastify.register(authController, { prefix: `${API_PREFIX}/auth` });
+
+fastify.register(productController, { prefix: `${API_PREFIX}/products` });
 
 fastify.get('/health', { preHandler: authenticate }, async (request, reply) => {
   return { status: 'ok', timestamp: new Date().toISOString() };
