@@ -4,6 +4,7 @@ import fastifyJwt from '@fastify/jwt';
 import { API_PREFIX } from './config/constants.js';
 import { authenticate } from './middlewares/authenticate.js';
 import productController from './controllers/product.controller.js';
+import warehouseController from './controllers/warehouse.controller.js';
 
 const fastify = Fastify({
   logger: true
@@ -18,6 +19,8 @@ fastify.register(fastifyJwt, { secret: jwtSecret });
 fastify.register(authController, { prefix: `${API_PREFIX}/auth` });
 
 fastify.register(productController, { prefix: `${API_PREFIX}/products` });
+
+fastify.register(warehouseController, { prefix: `${API_PREFIX}/warehouses` });
 
 fastify.get('/health', { preHandler: authenticate }, async (request, reply) => {
   return { status: 'ok', timestamp: new Date().toISOString() };

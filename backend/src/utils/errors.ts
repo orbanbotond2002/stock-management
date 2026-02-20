@@ -20,3 +20,6 @@ export const forbidden = () =>
 
 export const authenticationError = () =>
   new AppError(401, 'UNAUTHORIZED', 'Invalid or missing token');
+
+export const conflict = (message: string) =>
+  new AppError(409, 'CONFLICT', message);
