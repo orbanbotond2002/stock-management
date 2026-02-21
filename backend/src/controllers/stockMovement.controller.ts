@@ -13,16 +13,16 @@ export default async function stockMovementController(
     '/',
     { preHandler: authenticate },
     async (request: FastifyRequest, reply: FastifyReply) => {
-      const query = request.query as any;
+      const query = request.query as {
+        type?: MovementType;
+        warehouseId?: string;
+        productId?: string;
+        startDate?: string;
+        endDate?: string;
+      };
 
       try {
-        const movements = await stockMovementService.getAllMovements({
-          type: query.type,
-          warehouseId: query.warehouseId,
-          productId: query.productId,
-          startDate: query.startDate,
-          endDate: query.endDate,
-        });
+        const movements = await stockMovementService.getAllMovements(query);
         return reply.send(movements);
       } catch (err) {
         return sendError(reply, err);
@@ -55,7 +55,13 @@ export default async function stockMovementController(
       },
     },
     async (request: FastifyRequest, reply: FastifyReply) => {
-      const body = request.body as any;
+      const body = request.body as {
+        type: MovementType;
+        productId: string;
+        quantity: number;
+        sourceWarehouseId?: string;
+        targetWarehouseId?: string;
+      };
       const user = request.user as { sub: string; role: string };
 
       try {

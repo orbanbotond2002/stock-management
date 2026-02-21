@@ -2,7 +2,6 @@ import type { FastifyInstance } from 'fastify';
 import { authenticate } from '../middlewares/authenticate.js';
 import { requireRole } from '../middlewares/requireRole.js';
 import { sendError } from '../utils/sendError.js';
-import { validationError } from '../utils/errors.js';
 import * as warehouseService from '../services/warehouse.service.js';
 
 export default async function warehouseController(fastify: FastifyInstance) {

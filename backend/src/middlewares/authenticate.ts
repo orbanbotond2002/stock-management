@@ -8,6 +8,7 @@ export async function authenticate(
 ) {
   try {
     await request.jwtVerify();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     return sendError(reply, authenticationError());
   }

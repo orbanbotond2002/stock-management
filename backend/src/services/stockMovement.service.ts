@@ -1,11 +1,7 @@
 import { prisma } from '../db/prisma.js';
 import { MovementType } from '@prisma/client';
 import * as movementRepo from '../repositories/stockMovement.repository.js';
-import {
-  AppError,
-  insufficientStock,
-  invalidTransfer,
-} from '../utils/errors.js';
+import { insufficientStock, invalidTransfer } from '../utils/errors.js';
 
 export const getAllMovements = (filters?: {
   type?: MovementType;

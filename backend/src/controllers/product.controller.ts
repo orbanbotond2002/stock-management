@@ -2,7 +2,6 @@ import type { FastifyInstance } from 'fastify';
 import { authenticate } from '../middlewares/authenticate.js';
 import * as productService from '../services/product.service.js';
 import { requireRole } from '../middlewares/requireRole.js';
-import { validationError } from '../utils/errors.js';
 import { sendError } from '../utils/sendError.js';
 
 export default async function productController(fastify: FastifyInstance) {
@@ -17,7 +16,7 @@ export default async function productController(fastify: FastifyInstance) {
     try {
       const product = await productService.getProductById(id);
       return reply.send(product);
-    } catch (err: any) {
+    } catch (err: unknown) {
       return sendError(reply, err);
     }
   });
@@ -75,7 +74,7 @@ export default async function productController(fastify: FastifyInstance) {
       try {
         const product = await productService.updateProduct(id, body);
         return reply.send(product);
-      } catch (err: any) {
+      } catch (err: unknown) {
         return sendError(reply, err);
       }
     }
@@ -89,7 +88,7 @@ export default async function productController(fastify: FastifyInstance) {
       try {
         await productService.deleteProduct(id);
         return reply.status(204).send();
-      } catch (err: any) {
+      } catch (err: unknown) {
         return sendError(reply, err);
       }
     }

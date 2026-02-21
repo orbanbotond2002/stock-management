@@ -3,7 +3,7 @@ import { loginUser } from '../services/auth.service.js';
 import '@fastify/jwt';
 
 export default async function authController(fastify: FastifyInstance) {
-  fastify.post(
+  fastify.post<{ Body: { email: string; password: string } }>(
     '/login',
     {
       schema: {
@@ -18,7 +18,7 @@ export default async function authController(fastify: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const { email, password } = request.body as any;
+      const { email, password } = request.body;
 
       if (!email || !password)
         return reply
@@ -32,8 +32,11 @@ export default async function authController(fastify: FastifyInstance) {
           fastify.jwt.sign.bind(fastify.jwt)
         );
         return reply.send({ message: 'Successful login', ...result });
-      } catch (err: any) {
-        return reply.status(err.statusCode || 500).send({ error: err.message });
+      } catch (err: unknown) {
+        const error = err as Error & { statusCode?: number };
+        return reply
+          .status(error.statusCode || 500)
+          .send({ error: error.message });
       }
     }
   );

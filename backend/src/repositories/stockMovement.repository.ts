@@ -1,5 +1,6 @@
 import { prisma } from '../db/prisma.js';
 import { MovementType } from '@prisma/client';
+import type { Prisma } from '@prisma/client';
 
 export const findStockByProductAndWarehouse = (
   productId: string,
@@ -49,7 +50,7 @@ export const findAllMovements = (filters?: {
   });
 
 export const createInMovement = (
-  tx: any,
+  tx: Prisma.TransactionClient,
   data: {
     productId: string;
     targetWarehouseId: string;
@@ -68,7 +69,7 @@ export const createInMovement = (
   });
 
 export const createOutMovement = (
-  tx: any,
+  tx: Prisma.TransactionClient,
   data: {
     productId: string;
     sourceWarehouseId: string;
@@ -87,7 +88,7 @@ export const createOutMovement = (
   });
 
 export const createTransferMovement = (
-  tx: any,
+  tx: Prisma.TransactionClient,
   data: {
     productId: string;
     sourceWarehouseId: string;
@@ -108,7 +109,7 @@ export const createTransferMovement = (
   });
 
 export const incrementStock = (
-  tx: any,
+  tx: Prisma.TransactionClient,
   productId: string,
   warehouseId: string,
   quantity: number
@@ -120,7 +121,7 @@ export const incrementStock = (
   });
 
 export const decrementStock = (
-  tx: any,
+  tx: Prisma.TransactionClient,
   productId: string,
   warehouseId: string,
   quantity: number

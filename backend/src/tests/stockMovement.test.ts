@@ -70,6 +70,9 @@ describe('OUT movement', () => {
     expect(result.id).toBe('1');
     expect(result.type).toBe('OUT');
 
-    expect(findStockByProductAndWarehouse).toHaveBeenCalledWith('product-1', 'warehouse-1');
+    expect(findStockByProductAndWarehouse).toHaveBeenCalledWith(
+      'product-1',
+      'warehouse-1'
+    );
   });
 });

@@ -10,7 +10,8 @@ vi.mock('../repositories/user.repository.js', () => ({
       return Promise.resolve({
         id: 'user-1',
         email: 'admin@helixsoft.com',
-        passwordHash: '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+        passwordHash:
+          '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
         role: 'admin',
       });
     }
@@ -20,9 +21,9 @@ vi.mock('../repositories/user.repository.js', () => ({
 
 vi.mock('bcrypt', () => ({
   default: {
-    compare: vi.fn(async (plain: string) => plain === 'admin123')
+    compare: vi.fn(async (plain: string) => plain === 'admin123'),
   },
-  compare: vi.fn(async (plain: string) => plain === 'admin123')
+  compare: vi.fn(async (plain: string) => plain === 'admin123'),
 }));
 
 const app = Fastify();
