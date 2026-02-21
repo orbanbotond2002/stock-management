@@ -16,7 +16,11 @@ export const validationError = (message: string) =>
   new AppError(400, 'VALIDATION_ERROR', message);
 
 export const forbidden = () =>
-  new AppError(403, 'FORBIDDEN', 'You do not have permission to perform this action');
+  new AppError(
+    403,
+    'FORBIDDEN',
+    'You do not have permission to perform this action'
+  );
 
 export const authenticationError = () =>
   new AppError(401, 'UNAUTHORIZED', 'Invalid or missing token');
@@ -28,4 +32,8 @@ export const insufficientStock = () =>
   new AppError(400, 'INSUFFICIENT_STOCK', 'Not enough stock in warehouse');
 
 export const invalidTransfer = () =>
-  new AppError(400, 'INVALID_TRANSFER', 'Source and target warehouse cannot be the same');
+  new AppError(
+    400,
+    'INVALID_TRANSFER',
+    'Source and target warehouse cannot be the same'
+  );

@@ -11,7 +11,7 @@ import swaggerUi from '@fastify/swagger-ui';
 import reportController from './controllers/report.controller.js';
 
 const fastify = Fastify({
-  logger: true
+  logger: true,
 });
 
 const jwtSecret = process.env.JWT_SECRET;
@@ -29,7 +29,9 @@ fastify.register(productController, { prefix: `${API_PREFIX}/products` });
 
 fastify.register(warehouseController, { prefix: `${API_PREFIX}/warehouses` });
 
-fastify.register(stockMovementController, { prefix: '/api/v1/stock-movements' });
+fastify.register(stockMovementController, {
+  prefix: '/api/v1/stock-movements',
+});
 
 fastify.register(reportController, { prefix: `${API_PREFIX}/reports` });
 

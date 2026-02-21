@@ -12,17 +12,20 @@ export const getWarehouseById = async (id: string) => {
 export const createWarehouse = (data: { name: string; location?: string }) =>
   warehouseRepo.createWarehouse(data);
 
-export const updateWarehouse = async (id: string, data: { name?: string; location?: string }) => {
+export const updateWarehouse = async (
+  id: string,
+  data: { name?: string; location?: string }
+) => {
   await getWarehouseById(id);
   return warehouseRepo.updateWarehouse(id, data);
 };
 
 export const deleteWarehouse = async (id: string) => {
   const warehouse = await getWarehouseById(id);
-  
+
   if (warehouse.stocks && warehouse.stocks.length > 0) {
     throw conflict('Cannot delete warehouse because it contains active stock');
   }
-  
+
   return warehouseRepo.deleteWarehouse(id);
 };

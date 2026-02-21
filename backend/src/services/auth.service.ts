@@ -12,12 +12,13 @@ export async function loginUser(
 
   const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
 
-  if (!isPasswordValid) throw { statusCode: 401, message: 'Invalid email or password' };
+  if (!isPasswordValid)
+    throw { statusCode: 401, message: 'Invalid email or password' };
 
   const token = signToken({ sub: user.id, role: user.role });
 
   return {
     token,
-    user: { id: user.id, email: user.email, role: user.role }
+    user: { id: user.id, email: user.email, role: user.role },
   };
 }

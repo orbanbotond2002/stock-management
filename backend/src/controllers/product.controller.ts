@@ -22,56 +22,76 @@ export default async function productController(fastify: FastifyInstance) {
     }
   });
 
-  fastify.post('/', {
-    preHandler: [authenticate, requireRole('admin')],
-    schema: {
+  fastify.post(
+    '/',
+    {
+      preHandler: [authenticate, requireRole('admin')],
+      schema: {
         body: {
-        type: 'object',
-        required: ['sku', 'name'],
-        properties: {
+          type: 'object',
+          required: ['sku', 'name'],
+          properties: {
             sku: { type: 'string' },
             name: { type: 'string' },
-            description: { type: 'string' }
-        }
-        }
+            description: { type: 'string' },
+          },
+        },
+      },
+    },
+    async (request, reply) => {
+      const body = request.body as {
+        sku: string;
+        name: string;
+        description?: string;
+      };
+      const product = await productService.createProduct(body);
+      return reply.status(201).send(product);
     }
-    }, async (request, reply) => {
-    const body = request.body as { sku: string; name: string; description?: string };
-    const product = await productService.createProduct(body);
-    return reply.status(201).send(product);
-    });
+  );
 
-    fastify.put('/:id', {
-    preHandler: [authenticate, requireRole('admin')],
-    schema: {
+  fastify.put(
+    '/:id',
+    {
+      preHandler: [authenticate, requireRole('admin')],
+      schema: {
         body: {
-        type: 'object',
-        required: ['sku', 'name'],
-        properties: {
+          type: 'object',
+          required: ['sku', 'name'],
+          properties: {
             sku: { type: 'string' },
             name: { type: 'string' },
-            description: { type: 'string' }
-        }
-        }
-    }
-    }, async (request, reply) => {
-    const { id } = request.params as { id: string };
-    const body = request.body as { sku?: string; name?: string; description?: string };
-    try {
+            description: { type: 'string' },
+          },
+        },
+      },
+    },
+    async (request, reply) => {
+      const { id } = request.params as { id: string };
+      const body = request.body as {
+        sku?: string;
+        name?: string;
+        description?: string;
+      };
+      try {
         const product = await productService.updateProduct(id, body);
         return reply.send(product);
-    } catch (err: any) {
+      } catch (err: any) {
         return sendError(reply, err);
+      }
     }
-    });
+  );
 
-  fastify.delete('/:id', { preHandler: [authenticate, requireRole('admin')] }, async (request, reply) => {
-    const { id } = request.params as { id: string };
-    try {
-      await productService.deleteProduct(id);
-      return reply.status(204).send();
-    } catch (err: any) {
-      return sendError(reply, err);
+  fastify.delete(
+    '/:id',
+    { preHandler: [authenticate, requireRole('admin')] },
+    async (request, reply) => {
+      const { id } = request.params as { id: string };
+      try {
+        await productService.deleteProduct(id);
+        return reply.status(204).send();
+      } catch (err: any) {
+        return sendError(reply, err);
+      }
     }
-  });
+  );
 }
