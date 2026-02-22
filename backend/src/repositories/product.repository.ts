@@ -32,3 +32,9 @@ export const updateProduct = (
 
 export const deleteProduct = (id: string) =>
   prisma.product.delete({ where: { id } });
+
+export const deleteStocksByProductId = (productId: string) =>
+  prisma.stock.deleteMany({ where: { productId } });
+
+export const countStockMovementsByProductId = (productId: string) =>
+  prisma.stockMovement.count({ where: { productId } });

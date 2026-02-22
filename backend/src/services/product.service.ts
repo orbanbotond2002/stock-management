@@ -1,5 +1,5 @@
 import * as productRepo from '../repositories/product.repository.js';
-import { notFound } from '../utils/errors.js';
+import { conflict, notFound } from '../utils/errors.js';
 
 export const getAllProducts = (search?: string) =>
   productRepo.findAllProducts(search);
@@ -25,6 +25,28 @@ export const updateProduct = async (
 };
 
 export const deleteProduct = async (id: string) => {
-  await getProductById(id);
+  const product = await getProductById(id);
+
+  const positiveStocks = product.stocks.filter((s) => s.quantity > 0);
+  if (positiveStocks.length > 0) {
+    const warehouseNames = Array.from(
+      new Set(positiveStocks.map((s) => s.warehouse.name))
+    );
+
+    throw conflict(
+      `Can\'t delete product. Warehouse(s): ${warehouseNames.join(
+        ', '
+      )}`
+    );
+  }
+
+  const movementCount = await productRepo.countStockMovementsByProductId(id);
+  if (movementCount > 0) {
+    throw conflict(
+      'Can\'t delete product: there are stock movements for this product.'
+    );
+  }
+
+  await productRepo.deleteStocksByProductId(id);
   return productRepo.deleteProduct(id);
 };
