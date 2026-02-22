@@ -34,16 +34,14 @@ export const deleteProduct = async (id: string) => {
     );
 
     throw conflict(
-      `Can\'t delete product. Warehouse(s): ${warehouseNames.join(
-        ', '
-      )}`
+      `Can\'t delete product. Warehouse(s): ${warehouseNames.join(', ')}`
     );
   }
 
   const movementCount = await productRepo.countStockMovementsByProductId(id);
   if (movementCount > 0) {
     throw conflict(
-      'Can\'t delete product: there are stock movements for this product.'
+      "Can't delete product: there are stock movements for this product."
     );
   }
 

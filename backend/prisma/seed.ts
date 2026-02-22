@@ -5,6 +5,7 @@ import { prisma } from '../src/db/prisma.js'
 async function main() {
   const adminPassword = await bcrypt.hash('admin123', 10)
   const managerPassword = await bcrypt.hash('manager123', 10)
+  const viewerPassword = await bcrypt.hash('viewer123', 10)
 
   const admin = await prisma.user.upsert({
     where: { email: 'admin@helixsoft.com' },
@@ -23,6 +24,16 @@ async function main() {
       email: 'manager@helixsoft.com',
       passwordHash: managerPassword,
       role: UserRole.manager,
+    },
+  })
+
+  await prisma.user.upsert({
+    where: { email: 'viewer@helixsoft.com' },
+    update: {},
+    create: {
+      email: 'viewer@helixsoft.com',
+      passwordHash: viewerPassword,
+      role: UserRole.viewer,
     },
   })
 
