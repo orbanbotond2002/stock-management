@@ -8,7 +8,7 @@ import {
   TableRow,
   Typography,
 } from '@mui/material'
-import type { Product } from '../api/products'
+import type { Product } from '../../api/products'
 
 type LowStockRow = {
   product: Product

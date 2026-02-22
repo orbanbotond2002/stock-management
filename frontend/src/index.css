@@ -62,12 +62,12 @@ body {
   gap: 6px;
 }
 
-label {
+.form label {
   font-size: 12px;
   opacity: 0.85;
 }
 
-input {
+.form input {
   height: 40px;
   border-radius: 10px;
   padding: 0 12px;
@@ -77,7 +77,7 @@ input {
   outline: none;
 }
 
-input:focus {
+.form input:focus {
   border-color: rgba(99, 102, 241, 0.8);
 }
 
@@ -95,7 +95,7 @@ input:focus {
   font-size: 12px;
 }
 
-button {
+.form button {
   height: 42px;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -105,11 +105,11 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.form button:hover {
   border-color: rgba(99, 102, 241, 0.8);
 }
 
-button:disabled {
+.form button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }

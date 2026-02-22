@@ -54,12 +54,17 @@ export async function apiFetch<T>(
   path: string,
   options: RequestInit = {}
 ): Promise<T> {
+  const baseHeaders = new Headers(options.headers ?? {})
+
+  // Only set JSON content-type when we're actually sending a JSON body.
+  // This avoids unnecessary CORS preflight requests for GET/DELETE.
+  if (options.body !== undefined && !baseHeaders.has('content-type')) {
+    baseHeaders.set('content-type', 'application/json')
+  }
+
   const response = await fetch(path, {
     ...options,
-    headers: {
-      'content-type': 'application/json',
-      ...(options.headers ?? {}),
-    },
+    headers: baseHeaders,
   })
 
   if (response.status === 204) return undefined as T

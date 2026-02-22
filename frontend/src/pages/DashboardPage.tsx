@@ -7,8 +7,8 @@ import { fetchWarehouses } from '../api/warehouses'
 import { fetchStockOnHand } from '../api/reports'
 import { PageHeader } from '../components/PageHeader'
 import { ErrorAlert } from '../components/ErrorAlert'
-import { StatCard } from '../components/StatCard'
-import { LowStockTable } from '../components/LowStockTable'
+import { StatCard } from '../components/dashboard/StatCard'
+import { LowStockTable } from '../components/dashboard/LowStockTable'
 
 type LowStockRow = {
   product: Product
