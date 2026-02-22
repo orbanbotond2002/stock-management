@@ -1,4 +1,5 @@
-import { Box } from '@mui/material'
+import { useEffect, useMemo, useState } from 'react'
+import { Alert, Box } from '@mui/material'
 import { ApiError } from '../api/http'
 
 type Props = {
@@ -6,17 +7,27 @@ type Props = {
 }
 
 export function ErrorAlert({ error }: Props) {
-  if (!error) return null
-
-  const message = (() => {
+  const message = useMemo(() => {
+    if (!error) return null
+    if (typeof error === 'string' && error.trim().length > 0) return error
     if (error instanceof ApiError) return error.message
     if (error instanceof Error) return error.message
     return 'Something went wrong'
-  })()
+  }, [error])
+
+  const [dismissed, setDismissed] = useState(false)
+
+  useEffect(() => {
+    setDismissed(false)
+  }, [message])
+
+  if (!message || dismissed) return null
 
   return (
-    <Box className="errorBox" sx={{ mt: 1.5 }}>
-      {message}
+    <Box sx={{ mb: 2 }}>
+      <Alert severity="error" onClose={() => setDismissed(true)}>
+        {message}
+      </Alert>
     </Box>
   )
 }

@@ -64,8 +64,8 @@ export function DashboardPage() {
 
   return (
     <Container maxWidth="lg" sx={{ py: 3, textAlign: 'left' }}>
-      <PageHeader title="Dashboard" subtitle="Quick overview" />
       <ErrorAlert error={firstError} />
+      <PageHeader title="Dashboard" subtitle="Quick overview" />
 
       <Box component="section" sx={{ mt: 3 }}>
         <Typography variant="subtitle1" fontWeight={700} sx={{ mb: 1.25 }}>

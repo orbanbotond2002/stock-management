@@ -106,8 +106,8 @@ export function WarehousesPage() {
 
   return (
     <Container maxWidth="lg" sx={{ py: 3, textAlign: 'left' }}>
-      <PageHeader title="Warehouses" subtitle="Manage warehouse locations" />
       <ErrorAlert error={firstError} />
+      <PageHeader title="Warehouses" subtitle="Manage warehouse locations" />
 
       {isAdmin && (
         <WarehouseUpsertCard

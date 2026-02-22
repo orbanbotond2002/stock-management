@@ -114,8 +114,8 @@ export function ProductsPage() {
 
   return (
     <Container maxWidth="lg" sx={{ py: 3, textAlign: 'left' }}>
-      <PageHeader title="Products" subtitle="Search by SKU or name" />
       <ErrorAlert error={firstError} />
+      <PageHeader title="Products" subtitle="Search by SKU or name" />
 
       <ProductSearchCard
         search={search}

@@ -21,13 +21,13 @@ export function ProductDetailPage() {
 
   return (
     <Container maxWidth="lg" sx={{ py: 3, textAlign: 'left' }}>
+      <ErrorAlert error={productQuery.error} />
       <PageHeader
         title="Product detail"
         subtitle={
           product ? `${product.sku} · ${product.name}` : id ? `ID: ${id}` : '—'
         }
       />
-      <ErrorAlert error={productQuery.error} />
 
       <ProductDetailContent
         id={id}
