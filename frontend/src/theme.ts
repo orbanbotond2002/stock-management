@@ -8,6 +8,38 @@ export const appTheme = createTheme({
       paper: 'rgba(255, 255, 255, 0.04)',
     },
   },
+  components: {
+    MuiPopover: {
+      styleOverrides: {
+        paper: ({ theme }) => ({
+          backgroundColor: theme.palette.background.default,
+          backgroundImage: 'none',
+          opacity: 1,
+          border: `1px solid ${theme.palette.divider}`,
+        }),
+      },
+    },
+    MuiMenu: {
+      styleOverrides: {
+        paper: ({ theme }) => ({
+          backgroundColor: theme.palette.background.default,
+          backgroundImage: 'none',
+          opacity: 1,
+          border: `1px solid ${theme.palette.divider}`,
+        }),
+      },
+    },
+    MuiAutocomplete: {
+      styleOverrides: {
+        paper: ({ theme }) => ({
+          backgroundColor: theme.palette.background.default,
+          backgroundImage: 'none',
+          opacity: 1,
+          border: `1px solid ${theme.palette.divider}`,
+        }),
+      },
+    },
+  },
   shape: {
     borderRadius: 14,
   },
