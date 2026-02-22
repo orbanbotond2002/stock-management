@@ -14,13 +14,25 @@ export const createProduct = (data: {
   sku: string;
   name: string;
   description?: string;
-}) => productRepo.createProduct(data);
+}) =>
+  (async () => {
+    const existing = await productRepo.findProductBySku(data.sku);
+
+    if (existing) throw conflict('SKU already exists');
+    return productRepo.createProduct(data);
+  })();
 
 export const updateProduct = async (
   id: string,
   data: { sku?: string; name?: string; description?: string }
 ) => {
-  await getProductById(id);
+  const existing = await getProductById(id);
+  if (data.sku && data.sku !== existing.sku) {
+    const other = await productRepo.findProductBySku(data.sku);
+
+    if (other && other.id !== id) throw conflict('SKU already exists');
+  }
+
   return productRepo.updateProduct(id, data);
 };
 

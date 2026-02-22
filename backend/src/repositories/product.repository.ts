@@ -19,6 +19,9 @@ export const findProductById = (id: string) =>
     include: { stocks: { include: { warehouse: true } } },
   });
 
+export const findProductBySku = (sku: string) =>
+  prisma.product.findUnique({ where: { sku } });
+
 export const createProduct = (data: {
   sku: string;
   name: string;

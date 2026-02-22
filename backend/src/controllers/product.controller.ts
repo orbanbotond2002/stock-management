@@ -43,8 +43,12 @@ export default async function productController(fastify: FastifyInstance) {
         name: string;
         description?: string;
       };
-      const product = await productService.createProduct(body);
-      return reply.status(201).send(product);
+      try {
+        const product = await productService.createProduct(body);
+        return reply.status(201).send(product);
+      } catch (err: unknown) {
+        return sendError(reply, err);
+      }
     }
   );
 
