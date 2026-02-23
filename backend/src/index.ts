@@ -1,4 +1,5 @@
 import Fastify from 'fastify';
+import fastifyCors from '@fastify/cors';
 import authController from './controllers/auth.controller.js';
 import fastifyJwt from '@fastify/jwt';
 import { API_PREFIX } from './config/constants.js';
@@ -17,6 +18,11 @@ const fastify = Fastify({
 const jwtSecret = process.env.JWT_SECRET;
 
 if (!jwtSecret) throw new Error('JWT_SECRET environment variable is not set');
+
+fastify.register(fastifyCors, {
+  origin: process.env.CORS_ORIGIN ?? '*',
+  credentials: true,
+});
 
 fastify.register(swagger, swaggerOptions);
 fastify.register(swaggerUi, swaggerUiOptions);

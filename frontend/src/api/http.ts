@@ -50,6 +50,8 @@ function formatNonJsonError(status: number): string {
   return 'Request failed'
 }
 
+const API_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? ''
+
 export async function apiFetch<T>(
   path: string,
   options: RequestInit = {}
@@ -62,7 +64,7 @@ export async function apiFetch<T>(
     baseHeaders.set('content-type', 'application/json')
   }
 
-  const response = await fetch(path, {
+  const response = await fetch(`${API_BASE}${path}`, {
     ...options,
     headers: baseHeaders,
   })
