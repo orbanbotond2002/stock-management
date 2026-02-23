@@ -12,6 +12,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: 'Products', to: '/products' },
   { label: 'Warehouses', to: '/warehouses' },
   { label: 'Stock Movements', to: '/stock-movements' },
+  { label: 'Stock Report', to: '/reports/stock-on-hand' },
 ]
 
 export function AppLayout() {

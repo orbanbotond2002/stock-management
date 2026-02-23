@@ -5,6 +5,7 @@ import { LoginPage } from '../pages/LoginPage'
 import { ProductDetailPage } from '../pages/ProductDetailPage'
 import { ProductsPage } from '../pages/ProductsPage'
 import { StockMovementsPage } from '../pages/StockMovementsPage'
+import { StockReportPage } from '../pages/StockReportPage'
 import { WarehousesPage } from '../pages/WarehousesPage'
 import { ProtectedRoute } from './ProtectedRoute'
 import { PublicOnlyRoute } from './PublicOnlyRoute'
@@ -25,6 +26,7 @@ export const router = createBrowserRouter([
           { path: '/products/:id', element: <ProductDetailPage /> },
           { path: '/warehouses', element: <WarehousesPage /> },
           { path: '/stock-movements', element: <StockMovementsPage /> },
+          { path: '/reports/stock-on-hand', element: <StockReportPage /> },
         ],
       },
     ],
