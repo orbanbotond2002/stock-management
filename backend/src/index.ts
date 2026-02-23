@@ -22,7 +22,8 @@ if (!jwtSecret) throw new Error('JWT_SECRET environment variable is not set');
 fastify.register(fastifyCors, {
   origin: process.env.CORS_ORIGIN || true,
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Authorization', 'Content-Type'],
 });
 
 fastify.register(swagger, swaggerOptions);
